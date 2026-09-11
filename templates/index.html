@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CodeGen — AI Python Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="ambient-stream" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">&lt;/&gt;</span>
+        <div>
+          <strong>CodeGen</strong>
+          <span>AI Python Generator</span>
+        </div>
+      </div>
+
+      <div class="system-status">
+        <span class="pulse"></span>
+        <span>System ready</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">NATURAL LANGUAGE → PYTHON</p>
+        <h1>Build code from<br><span>simple ideas.</span></h1>
+        <p>Describe what you need. CodeGen generates Python, checks it, and gives you a clean result.</p>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <article class="panel requirement-panel">
+        <div class="panel-top">
+          <div class="section-label">
+            <span class="number">01</span>
+            <div>
+              <h2>Requirement</h2>
+              <p>Describe the task</p>
+            </div>
+          </div>
+          <span class="micro-label">INPUT</span>
+        </div>
+
+        <div class="input-area">
+          <textarea id="requirement" placeholder="Create a function that checks if a number is prime." spellcheck="false"></textarea>
+          <div class="input-hint">
+            <span>⌘ Enter to generate</span>
+            <span id="charCount">0</span>
+          </div>
+        </div>
+
+        <div class="panel-bottom">
+          <span class="bottom-note">Plain English is enough.</span>
+          <button id="generateBtn" class="primary-btn">
+            <span>Generate</span>
+            <span class="btn-arrow">↗</span>
+          </button>
+        </div>
+      </article>
+
+      <article class="panel code-panel">
+        <div class="panel-top">
+          <div class="section-label">
+            <span class="number">02</span>
+            <div>
+              <h2>Generated code</h2>
+              <p id="codeMeta">Python · waiting for input</p>
+            </div>
+          </div>
+          <button id="copyBtn" class="copy-btn" disabled>Copy</button>
+        </div>
+
+        <div class="code-body">
+          <div class="code-window">
+            <div class="code-toolbar">
+              <div class="window-dots"><i></i><i></i><i></i></div>
+              <span>python</span>
+            </div>
+            <div class="code-wrap">
+              <pre id="codeOutput"><code>Generated Python will appear here.</code></pre>
+            </div>
+          </div>
+
+          <aside class="verification">
+            <div class="verification-title">
+              <span>Verification</span>
+              <span class="verification-line"></span>
+            </div>
+
+            <div id="ragStatus" class="check-card">
+              <span class="check-icon pending">•</span>
+              <div>
+                <strong>RAG database</strong>
+                <small id="ragText">Waiting</small>
+              </div>
+            </div>
+
+            <div id="codeStatus" class="check-card">
+              <span class="check-icon pending">•</span>
+              <div>
+                <strong>Code errors</strong>
+                <small id="codeText">Waiting</small>
+              </div>
+            </div>
+
+            <div class="verification-foot">
+              <span id="validationText">Awaiting generated code</span>
+            </div>
+          </aside>
+        </div>
+
+        <div class="panel-bottom code-bottom">
+          <div id="validation" class="validation idle">
+            <span class="mini-dot"></span>
+            <span>Not validated</span>
+          </div>
+          <button id="validateBtn" class="secondary-btn" disabled>Run validation</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="resultPanel" class="result-panel hidden">
+      <div class="result-heading">
+        <div>
+          <p class="eyebrow">RESULT</p>
+          <h2 id="resultTitle">Code passed validation</h2>
+        </div>
+        <span id="resultBadge" class="badge">PASS</span>
+      </div>
+
+      <div class="result-content">
+        <div class="result-stat">
+          <span>Syntax</span>
+          <strong id="syntaxValue">Valid</strong>
+        </div>
+        <div class="result-stat">
+          <span>Execution</span>
+          <strong id="executionValue">Success</strong>
+        </div>
+        <div class="result-output">
+          <span>Console output</span>
+          <pre id="stdout">No output.</pre>
+        </div>
+      </div>
+    </section>
+
+    <p id="error" class="error hidden"></p>
+    <footer><span>CodeGen</span><i></i><span>Focused. Verified. Minimal.</span></footer>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
